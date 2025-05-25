@@ -19,9 +19,8 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-# Load class names and models
-class_names = get_class_names()
-torch_model = BrainTumorCNN(num_classes=len(class_names))
+# Load models (defer class_names to inside prediction functions)
+torch_model = BrainTumorCNN(num_classes=4)  # Hardcoded num_classes to avoid loading from data
 torch_model.load_state_dict(torch.load('models/khondwani_model.torch', map_location='cpu'))
 torch_model.eval()
 tf_model = tf.keras.models.load_model('models/khondwani_model.tensorflow')
@@ -46,6 +45,7 @@ def preprocess_image_tf(image_path):
     return np.expand_dims(image, axis=0)
 
 def predict_with_torch(image_path):
+    class_names = get_class_names()
     input_tensor = preprocess_image_torch(image_path)
     with torch.no_grad():
         output = torch_model(input_tensor)
@@ -53,6 +53,7 @@ def predict_with_torch(image_path):
     return class_names[predicted.item()]
 
 def predict_with_tf(image_path):
+    class_names = get_class_names()
     input_tensor = preprocess_image_tf(image_path)
     predictions = tf_model.predict(input_tensor)
     return class_names[np.argmax(predictions)]
@@ -78,9 +79,7 @@ def predict():
             else:
                 prediction = predict_with_tf(filepath)
 
-            # Make image path relative to static/ so it works in HTML
             image_path = '/' + filepath.replace("\\", "/")  # For Windows/Linux compatibility
-
             return render_template("result.html", prediction=prediction, image_path=image_path)
 
     return render_template("predict.html")
@@ -89,5 +88,7 @@ def predict():
 def tumor_info():
     return render_template("tumor_info.html")
 
+# IMPORTANT: for deployment
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 10000))
+    app.run(host='0.0.0.0', port=port)
