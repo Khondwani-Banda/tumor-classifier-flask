@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='images/predict_bg.jpg') }}");
+            background-size: cover;
+            color: white;
+            text-align: center;
+            padding: 60px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Upload an MRI Image for Classification</h1>
+    <form action="{{ url_for('predict') }}" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" required><br>
+        <select name="framework" required>
+            <option value="tf">TensorFlow</option>
+            <option value="torch">PyTorch</option>
+        </select><br>
+        <input type="submit" value="Predict" class="btn">
+    </form>
+    <a href="{{ url_for('index') }}" class="btn">Back to Home</a>
+</body>
+</html>

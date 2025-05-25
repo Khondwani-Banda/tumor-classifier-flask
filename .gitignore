@@ -1,0 +1,14 @@
+# Ignore large folders and unnecessary files
+data/
+models/
+__pycache__/
+*.pyc
+*.pt
+*.pth
+*.h5
+*.torch
+*.zip
+*.egg-info/
+env/
+venv/
+.DS_Store

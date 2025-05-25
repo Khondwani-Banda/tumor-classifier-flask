@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tumor Types</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='images/info_bg.jpg') }}");
+            background-size: cover;
+            color: white;
+            padding: 60px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Types of Brain Tumors</h1>
+    <ul>
+        <li><strong>Glioma:</strong> Tumors that begin in the glial cells of the brain or spine.</li>
+        <li><strong>Meningioma:</strong> Tumors that form on membranes covering the brain and spinal cord.</li>
+        <li><strong>No Tumor:</strong> The scan shows a normal brain without tumors.</li>
+        <li><strong>Pituitary:</strong> Tumors located in the pituitary gland, affecting hormonal functions.</li>
+    </ul>
+    <a href="{{ url_for('index') }}" class="btn">Back to Home</a>
+</body>
+</html>
