@@ -19,8 +19,7 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-# Load models (defer class_names to inside prediction functions)
-torch_model = BrainTumorCNN(num_classes=4)  # Hardcoded num_classes to avoid loading from data
+torch_model = BrainTumorCNN(num_classes=4)
 torch_model.load_state_dict(torch.load('models/khondwani_model.torch', map_location='cpu'))
 torch_model.eval()
 tf_model = tf.keras.models.load_model('models/khondwani_model.tensorflow')
