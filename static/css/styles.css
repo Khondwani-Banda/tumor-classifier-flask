@@ -19,3 +19,47 @@ input[type="file"], select {
     margin: 10px;
     border-radius: 5px;
 }
+/* Button styling */
+.stButton>button {
+    display: inline-block;
+    background-color: #3498db;
+    color: white;
+    padding: 12px 24px;
+    margin: 10px 0;
+    text-decoration: none;
+    border-radius: 30px;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.stButton>button:hover {
+    background-color: #2980b9;
+}
+
+/* File uploader styling */
+.stFileUploader {
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #ffffffcc;
+    border-radius: 10px;
+}
+
+/* Dropdown/selectbox styling */
+[data-baseweb="select"] {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+/* Optional: global font and background */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f9fcff;
+}
+
+/* Optional: style for headers */
+h1, h2, h3 {
+    color: #3498db;
+}
